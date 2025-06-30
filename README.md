@@ -1,54 +1,67 @@
 # 🧠 n8n Job Tracker Automation (RemoteOK + Google Sheets + Airtable + Notion)
 
-Track and manage job leads scraped from RemoteOK in one centralized workflow — powered by [n8n](https://n8n.io).
+Track and manage job leads scraped from RemoteOK — all in one automated system, powered by **n8n**.
+
+---
 
 ## 🔧 What It Does
 
-- Scrapes the latest jobs from [RemoteOK](https://remoteok.com)
+- Scrapes latest remote jobs from [RemoteOK](https://remoteok.com)
 - Deduplicates entries using SQL Merge
-- Saves jobs to:
+- Saves data to:
   - 📄 Google Sheets
   - 📋 Airtable
   - 📒 Notion
 - Adds `status` and `last_synced` columns for tracking
-- Schedule-based or manual execution
+- Can run manually or via schedule trigger
+
+---
 
 ## 💡 Features
 
 - API scraping via HTTP Request
-- Timestamp and tag formatting
-- Filter out already saved jobs
-- Multi-platform sync
-- Extendable for alerts or resume tracking
-
-## 🛠️ Tools Used
-
-| Tool | Purpose |
-|------|--------|
-| [n8n](https://n8n.io) | Core automation workflow |
-| Google Sheets | Job record storage |
-| Airtable | Visual filtering & tagging |
-| Notion | Central dashboard |
-
-## ✅ Setup Instructions
-
-1. Create a Google Sheet with the following columns:  
-   `title`, `company`, `tags_string`, `full_url`, `timestamp`, `status`, `last_synced`
-
-2. Create Airtable & Notion databases with the same fields.
-
-3. Import the `.json` file in n8n → update your credentials.
-
-4. Run the workflow manually or schedule it.
+- Timestamping and clean tag formatting
+- Filters out already saved jobs
+- Multi-platform sync (GSheets, Airtable, Notion)
+- Easily extendable (e.g. add resume tracking or Slack alerts)
 
 ---
 
-✅ Built fully with free, open-source tools.  
-🎯 Great fit for Upwork automation jobs, data sync, and scraping projects.
+## 🛠️ Tools Used
 
-## 📸 Screenshots
+| Tool           | Purpose                          |
+|----------------|----------------------------------|
+| **n8n**        | Automation engine                |
+| **Google Sheets** | Job data storage             |
+| **Airtable**   | Visual filtering and tagging     |
+| **Notion**     | Unified dashboard view           |
 
-| n8n Workflow | Google Sheets | Airtable | Notion |
-|--------------|----------------|----------|--------|
-| ![](/n8n-job-tracker-workflow.png) | ![](/google-sheets-job-tracker.png) | ![](/airtable-job-tracker.png) | ![](/notion-job-tracker.png) |
+---
 
+## ✅ Setup Instructions
+
+1. **Create a Google Sheet** with the following columns:  
+   `title`, `company`, `tags_string`, `full_url`, `timestamp`, `status`, `last_synced`
+
+2. **Create Airtable & Notion databases** with **matching fields** (make sure `tags_string` is multi-select, `timestamp` is date, and `full_url` is a URL field)
+
+3. In n8n:
+   - Import the workflow file: `job-tracker-workflow.json`
+   - Authenticate your Google Sheets, Airtable, and Notion accounts
+   - Update the credentials used in each node
+
+4. Run the workflow manually or schedule it to run daily/hourly.
+
+---
+
+## 🖼️ Screenshots
+
+| Google Sheets | Airtable | Notion | n8n Workflow |
+|---------------|----------|--------|--------------|
+| ![](google-sheets-job-tracker.png) | ![](airtable-job-tracker.png) | ![](notion-job-tracker.png) | ![](n8n-job-tracker-workflow.png) |
+
+---
+
+## 📄 License
+
+MIT
