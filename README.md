@@ -56,5 +56,5 @@ Track and manage job leads scraped from RemoteOK in one centralized workflow —
 
 | n8n Workflow | Google Sheets | Airtable | Notion |
 |--------------|----------------|----------|--------|
-| ![](/n8n-job-tracker-workflow.png) | ![](screenshots/google-sheets-job-tracker.png) | ![](screenshots/airtable-job-tracker.png) | ![](screenshots/notion-job-tracker.png) |
+| ![](/n8n-job-tracker-workflow.png) | ![](/google-sheets-job-tracker.png) | ![](/airtable-job-tracker.png) | ![](/notion-job-tracker.png) |
 
