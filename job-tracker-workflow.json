@@ -1,0 +1,527 @@
+{
+  "name": "job tracker",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://remoteok.com/api",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        180,
+        -200
+      ],
+      "id": "6f1a5d8b-42ca-4376-889b-d4f47bf41eed",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Remove first item (API metadata)\nreturn items.slice(1);\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -300
+      ],
+      "id": "fcdfa1fa-0f18-4c1c-8be8-81b3eb06be32",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab1f332f-cf04-4840-936d-08ef36e0e98f",
+              "name": "title",
+              "value": "={{ $json.position }}",
+              "type": "string"
+            },
+            {
+              "id": "c4fd06f5-8d64-480d-918c-a3283534f549",
+              "name": "company",
+              "value": "={{ $json.company }}",
+              "type": "string"
+            },
+            {
+              "id": "b60ea688-5eba-407c-9899-b396af845956",
+              "name": "tags_string",
+              "value": "={{ $json.tags.join(', ') }}",
+              "type": "string"
+            },
+            {
+              "id": "4181f2b5-cdb3-419e-aeca-756d74d32ad4",
+              "name": "full_url",
+              "value": "={{ 'https://remoteok.com/remote-jobs/' +$json.slug }}",
+              "type": "string"
+            },
+            {
+              "id": "88d45f7d-1de7-4ac3-9e02-1f1db75cf018",
+              "name": "timestamp",
+              "value": "={{ new Date().toISOString() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        -300
+      ],
+      "id": "8118c857-b6dc-4698-9382-e705bf79bbe1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI",
+          "mode": "list",
+          "cachedResultName": "newn8nnores",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        600,
+        -200
+      ],
+      "id": "4c197cfe-d7a4-4680-8a92-7ce3d18e6881",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "executeOnce": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ObGGaMLO1r4QTNjA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI",
+          "mode": "list",
+          "cachedResultName": "newn8nnores",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1EEwsy4aKg1X9uPnbtAhfASCFd_amhwu534RukA29lKI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.title }}",
+            "company": "={{ $json.company }}",
+            "tags_string": "={{ $json.tags_string }}",
+            "full_url": "={{ $json.full_url }}",
+            "timestamp": "={{ $json.timestamp }}",
+            "last_synced": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tags_string",
+              "displayName": "tags_string",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "full_url",
+              "displayName": "full_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "status ",
+              "displayName": "status ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_synced",
+              "displayName": "last_synced",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1320,
+        -280
+      ],
+      "id": "54969e7f-e7e2-4fb4-8d6d-dfbafd58b584",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ObGGaMLO1r4QTNjA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date().toISOString();\n\nreturn items\n  .filter(item => {\n    const status = item.json.status?.toLowerCase().trim();\n    return !status || status === ''; // keep if status is empty\n  })\n  .map(item => {\n    item.json.last_synced = now;\n    return item;\n  });\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        840,
+        -200
+      ],
+      "id": "3e2c92a9-77f5-422d-a0b4-46cd01746844",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 180
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        -300
+      ],
+      "id": "1953da46-0073-47b4-b333-1c7e84e01db5",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -200
+      ],
+      "id": "4bd3d91f-0874-4596-9b8d-9e0e93ea804a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "app6qkolBMijdIKwt",
+          "mode": "id"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblWJcu9MHVMMFMai",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/app6qkolBMijdIKwt/tblWJcu9MHVMMFMai"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.title }}",
+            "company": "={{ $json.company }}",
+            "tags_string": "={{ $json.tags_string }}",
+            "full_url": "={{ $json.full_url }}",
+            "timestamp": "={{ [$json.timestamp] }}",
+            "last_synced": "={{ [new Date().toISOString()] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "company",
+              "displayName": "company",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tags_string",
+              "displayName": "tags_string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "full_url",
+              "displayName": "full_url",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "last_synced",
+              "displayName": "last_synced",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1320,
+        0
+      ],
+      "id": "5913376d-97ed-448a-ab0c-8907ee765930",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "aqv2TNKzlVQYaPUd",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "query": "SELECT\n  input1.*\nFROM\n  input1\nLEFT JOIN\n  input2\nON\n  input1.full_url = input2.full_url\nWHERE\n  input2.full_url IS NULL\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1080,
+        -280
+      ],
+      "id": "ec70306c-f4c2-4a89-b6ea-421e087930fa",
+      "name": "Merge",
+      "alwaysOutputData": false,
+      "executeOnce": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0901d7c9-5145-4ac9-ba98-276e2452bd9a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "10907c258b9952d1ed82554480b03d9281a3e221805ca67e54327f691233cd5d"
+  },
+  "id": "ht8FTHIv1mjXBNMk",
+  "tags": []
+}
