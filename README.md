@@ -30,12 +30,6 @@ Track and manage job leads scraped from RemoteOK in one centralized workflow —
 | Airtable | Visual filtering & tagging |
 | Notion | Central dashboard |
 
-## 📦 Files Included
-
-- `job-tracker-workflow.json`: n8n workflow (importable)
-- `README.md`: this file
-- `screenshots/`: Optional UI examples (add yours)
-
 ## ✅ Setup Instructions
 
 1. Create a Google Sheet with the following columns:  
